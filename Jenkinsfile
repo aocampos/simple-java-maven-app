@@ -21,9 +21,19 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
+        stage('Create image') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                sh 'mvn docker:build'
+            }
+        }
+        stage('Publish image') {
+            steps {
+                sh 'docker push aocampos/my-app:latest'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml'
             }
         }
     }
