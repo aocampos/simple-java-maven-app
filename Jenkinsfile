@@ -26,11 +26,11 @@ pipeline {
                 sh 'mvn docker:build'
             }
         }
-        stage('Publish image') {
+        /*stage('Publish image') {
             steps {
                 sh 'docker push aocampos/my-app:latest'
             }
-        }
+        }*/
         stage('Deploy') {
             steps {
                 sh 'kubectl apply -f deployment.yaml'
